@@ -2,7 +2,7 @@
 
 This repository provides code and step-by-step instructions to execute the framework introduced in the paper "Towards a framework for discovering mechanisms underlying AI prediction of protected attributes", as shown in the figure below.
 
-![Concept Figure](figures/concept_figure.pdf)
+![Concept Figure](figures/concept_figure.jpg)
 
 ## Installation
 1. Git clone this repository
