@@ -1,0 +1,7 @@
+name: protected-attrib-prediciton-env
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.9.20
+  - pip

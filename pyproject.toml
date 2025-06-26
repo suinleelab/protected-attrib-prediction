@@ -1,0 +1,21 @@
+[project]
+name = "protected_attrib_prediction"
+description="Discovering mechanisms for protected attribute prediction"
+version = "0.1"
+dependencies = [
+    "torch == 2.0.1",
+    "torchvision == 0.15.2",
+    "numpy == 1.23.5",
+    "pandas == 2.0.3",
+    "scikit-learn == 1.3.0",
+    "matplotlib == 3.7.2",
+    "click == 8.1.7",
+    "tensorboard == 2.14.0"
+]
+
+[build-system]
+requires = ["setuptools>=64.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["src"]
