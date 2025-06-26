@@ -121,7 +121,7 @@ def get_statistical_analysis_args():
         default='derm',
         type=str
     )
-    parser.add_argument('--task',
+    parser.add_argument('--attribute',
         help='whether to run statistical analysis on diagnosis, age, or dermoscopy type',
         default='output',
         choices=['diagnosis', 'age', 'dermoscopy_type'],

@@ -271,18 +271,18 @@ if __name__ == "__main__":
     args = get_statistical_analysis_args()
 
     if args.dataset == 'derm':
-        if args.task == 'diagnosis':
+        if args.attribute == 'diagnosis':
             analyse_diagnoses_derm()
-        elif args.task == 'age':
+        elif args.attribute == 'age':
             analyse_age_derm()
-        elif args.task == 'dermoscopy_type':
+        elif args.attribute == 'dermoscopy_type':
             analyse_dermoscopic_types()
     elif args.dataset == 'cxr':
-        if args.task == 'diagnosis':
+        if args.attribute == 'diagnosis':
             analyse_diagnoses_cxr()
-        elif args.task == 'age':
+        elif args.attribute == 'age':
             analyse_age_cxr()
-        elif args.task == 'dermoscopy_type':
+        elif args.attribute == 'dermoscopy_type':
             raise ValueError("Dermoscopy type analysis is only applicable for derm datasets.")
     else:
         raise ValueError(f"{args.dataset} modality is not included in the current analysis. Please choose from 'derm' or 'cxr'.")

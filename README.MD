@@ -13,12 +13,12 @@ This repository provides code and step-by-step instructions to execute the frame
 conda env create -f environment.yml
 conda activate protected-attrib-prediciton-env
 ```
-4. Install the protected-atttrib-prediction package and necessary dependencies for development by running pip install -e ".[dev]"
+4. Install the protected-atttrib-prediction package and necessary dependencies for development by running ```pip install -e ".[dev]"```
 
 ## Set up directory paths
 Create the following environment variables for the base directory to the datasets and the output directory to store the trained models.
 
-```
+```bash
 export BASE_DIR_CHEXPERT=<PATH_TO_CHEXPERT_DIR>
 export BASE_DIR_MIMIC=<PATH_TO_MIMIC_DIR>
 export BASE_DIR_ISIC=<PATH_TO_ISIC_DIR>
@@ -27,7 +27,7 @@ export OUT_DIR=<PATH_TO_OUTPUT_DIR>
 
 Add the repo directory to PYTHONPATH:
 
-```
+```bash
 export PYTHONPATH="$PYTHONPATH:src"
 ```
 
@@ -51,14 +51,35 @@ To preprocess the race labels, run the `notebooks\get_cxr_race_labels.ipynb` jup
 ### Step 1: Train the classifiers for protected attribute prediciton
 To train the dermatology classifiers across five seeds, run the following command
 
-```
+```bash
 bash scripts/train_derm.sh
 ```
 
 To train the radiology classifiers across five seeds, run the following command
 
-```
+```bash
 bash scripts/train_cxr.sh
 ```
 
-The bash scripts indicate the different editable arguments usedfor training. The trained classifiers will get saved to `$OUTDIR\{modality}_{seed}.pt`
+The bash scripts indicate the different editable arguments usedfor training. The trained classifiers will get saved to `$OUTDIR/{modality}_{seed}.pt`
+
+### Step 2: Identifying potentially important signals
+
+#### Statistical Analysis
+
+```python
+python scripts/statistical_analysis.py \
+    --dataset [derm | cxr]                     # Modality to use
+    --task [diagnosis | age | dermoscopy_type] # Which attribute to run the statistical analysis on
+```
+
+#### Clustering
+
+#### StyleGAN Latent Space Optimization
+
+
+#### Explanation by Progressive Exaggeration (EBPE)
+
+### Step 3: Analysing the counterfactuals
+
+### Step 4: Quantification using inverse propensity treatment weighting (IPTW)
