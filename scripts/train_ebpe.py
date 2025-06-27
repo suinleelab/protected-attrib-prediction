@@ -279,7 +279,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset', type=str, default='derm', 
                         help='Type of dataset to use. Either "derm" or "cxr" are supported for now.')
-    parser.add_argument('--save_path', type=str, default='trained_models/ebpe_cgan.pth', help='Path to a .pth file to save the trained EBPE model')
+    parser.add_argument('--save_path', type=str, default=f"{os.environ['OUT_DIR']}/ebpe_derm.pth", help='Path to a .pth file to save the trained EBPE model')
     parser.add_argument('--device', type=str, default='cuda', help='Which GPU to use.')
     args = parser.parse_args()
     main(args)

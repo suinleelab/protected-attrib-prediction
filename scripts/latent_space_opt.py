@@ -23,7 +23,7 @@ def main(dataset, network_pkl, device):
     # load classifier
     classifier = EBPEClassifier(
             model_type='vit',
-            checkpoint_path='/projects/leelab3/derm/ai_features_checkpoints_v2/cxr_12345.pt'
+            checkpoint_path=f"{os.environ['OUT_DIR']}/{args.dataset}_12345.pt"
             )
     classifier.to(device)
 

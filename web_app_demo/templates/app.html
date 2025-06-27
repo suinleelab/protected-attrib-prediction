@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+  <script src="{{ url_for('static', filename='js/images.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+  <!-- <div class="row">
+  <div class="column">
+    a)
+    <img id='image1' width="256" height="256" >
+  </div>
+    <div class="column">
+    b)
+    <img id='image2' width="256" height="256">
+  </div>
+</div> -->
+
+<figure>
+  <img id='image1' width="256" height="256" >
+  <figcaption>A</figcaption>
+
+</figure>
+<figure>
+  <img id='image2' width="256" height="256">
+  <figcaption>B</figcaption>
+</figure>
+<hr style="width:70%;text-align:left;margin-left:0">
+<p>Use the slider to interpolate from left to right. <br />
+  Changes will be seen in the image on the right. Slider value of 0 is same as left image.</p>
+<input type="range" min="0" max="20" value="0" id='mySlider', onchange="interpolate()">
+<p>Slider Value: <span id="sliderValue"></span></p>
+
+
+  <p>Please answer the following questions about the two images above (<h id='counter'></h>)</p>
+  <!-- <p><strong>Lateral Position:</strong> -->
+  <hr style="width:70%;text-align:left;margin-left:0">
+  <p><strong>Does image A look realistic?</strong>
+    <input type="radio" id="yes_A" name="A" value=1>
+    <label for="yes_A">Yes</label>
+    <input type="radio" id="no_A" name="A" value=0>
+    <label for="no_A">No</label>
+  </p>
+  <hr style="width:70%;text-align:left;margin-left:0">
+  <p><strong>Does image B look realistic?</strong>
+    <input type="radio" id="yes_B" name="B" value=1>
+    <label for="yes_B">Yes</label>
+    <input type="radio" id="no_B" name="B" value=0>
+    <label for="no_B">No</label>
+  </p>
+  <hr style="width:70%;text-align:left;margin-left:0">
+
+
+  <div class="textarea-container">
+  <label for="ab_diff"><strong>What visual features are present in A which are either not in B or present to a lesser extent?</strong></label>
+  <textarea id="ab_diff"rows="4" cols="50"></textarea><br>
+  </div>
+  <hr style="width:70%;text-align:left;margin-left:0">
+
+  <div class="textarea-container">
+    <label for="ba_diff"><strong>What visual features are present in B which are either not in A or present to a lesser extent?</strong></label>
+    <textarea id="ba_diff"rows="4" cols="50"></textarea><br>
+  </div>
+
+  <hr style="width:70%;text-align:left;margin-left:0">
+
+  <button class="button" onclick="previous()">Previous</button>
+  <button class="button" onclick="next()">Next</button> or 
+  <label for="input"><strong>Jump to (Enter image index):</strong></label>
+  <input type="text" id="input"/>
+  <button onclick="goToIndex()">Go</button>
+  <br>
+  <hr style="width:70%;text-align:left;margin-left:0">
+  <p><strong>Please click submit to save your progress: </strong> <button class="button" id="submitButton">Submit</button>   <a href="/" class="button">Home</a>
+  </p>
+  
+
+
+  
+</body>
+</html>

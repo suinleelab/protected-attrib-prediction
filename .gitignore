@@ -29,6 +29,9 @@ MANIFEST
 # IDE
 .idea
 
+# data files
+data/
+
 # training runs
 runs/
 *.pkl

@@ -103,6 +103,7 @@ def get_signal_annotation_args():
     parser.add_argument('--training_type',
             help='type of model to train (classification or regression)',
             default='classification',
+            choices=['classification', 'regression'],
             type=str
             )
     parser.add_argument('--device',

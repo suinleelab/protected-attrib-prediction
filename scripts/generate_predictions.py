@@ -97,7 +97,6 @@ def generate_predictions(
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset', type=str, default='derm', help='Type of dataset to use. Either "derm" or "cxr" are supported for now')
-    parser.add_argument("--max_images", type=int, default=100, help='Maximum number of images to generate using EBPE')
     parser.add_argument('--device', type=str, default='cuda', help='Which GPU to use')
     parser.add_argument('--dataset_class', type=str, default='ISICSexDataset', help='Class name of the dataset to use')
 

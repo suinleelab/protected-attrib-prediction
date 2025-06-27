@@ -9,21 +9,6 @@ from src.datasets.isicsex import ISICSexDataset
 import argparse
 import os
 
-def add_hair_grades(ds):
-    hair_grade_ds = pd.read_csv('labeling/hair_grades.csv')
-    hair_grade_ds.set_index('isic_id', inplace=True)
-    grades = []
-    for isic_id in ds.isic_id:
-        try:
-            grade = hair_grade_ds.loc[isic_id].grade_alex
-        except KeyError:
-            grade = np.nan
-        grades.append(grade)
-    ds['hair_grade'] = grades
-    ds = ds.query('hair_grade == hair_grade')
-    return ds
-
-
 def diagnosis_map(diagnosis):
     if diagnosis == 'lentigo NOS':
         return 'lentigo simplex'
@@ -138,7 +123,7 @@ if __name__ == "__main__":
             nargs='+',
             default='hair',
             type=str
-            )
+    )
     args = parser.parse_args()
 
     all_seeds = [12345, 23456, 34567, 45678, 56789]

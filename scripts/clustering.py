@@ -63,10 +63,9 @@ def run_PCA(feature):
     print("Explained variance ratio:", pca.explained_variance_ratio_)
     return feature_new
 
-def main(model_path, 
-        featurized_path, 
-        save_path,
-        dataset_type,
+def main(clf_ckpt, 
+        featurized_path,
+        dataset,
         arch='vit',
         device='cuda'):
 
@@ -88,22 +87,22 @@ def main(model_path,
             transforms.Normalize(*norm_constants)
         ])
 
-        if dataset_type == 'cxr':
-            dataset = CXRClusterDataset(transform, split='train')
-        elif dataset_type == 'derm':
-            dataset = ISICClusterDataset(transform, split='test', filter_sex='female')
+        if dataset == 'cxr':
+            dataset_class = CXRClusterDataset(transform, split='train')
+        elif dataset == 'derm':
+            dataset_class = ISICClusterDataset(transform, split='test', filter_sex='female')
         else:
-            raise ValueError(f"{dataset_type} modality is not included in the current analysis. Please choose from 'cxr' or 'derm'.")
+            raise ValueError(f"{dataset} modality is not included in the current analysis. Please choose from 'cxr' or 'derm'.")
         
         mb_size = 32
             
         protected_attrib_classifier = protected_attrib_classifier.to(device)
-        state_dict = torch.load(model_path, map_location=device)
+        state_dict = torch.load(clf_ckpt, map_location=device)
         protected_attrib_classifier.load_state_dict(state_dict['model'])
         protected_attrib_classifier.eval()
 
         # Prepare dataloader.
-        dataloader = DataLoader(dataset, batch_size=mb_size, shuffle=False, pin_memory=True,
+        dataloader = DataLoader(dataset_class, batch_size=mb_size, shuffle=False, pin_memory=True,
                                 drop_last=False, num_workers=4)
 
         # initialize pretrained resnet 50 model
@@ -144,6 +143,7 @@ def main(model_path,
                             "predicted_protected_attrib_labels": predicted_protected_attrib_labels
                             }
 
+        os.makedirs(os.path.dirname(featurized_path), exist_ok=True)
         with open(featurized_path, "wb") as f:
             pickle.dump(resnet_feature_dict, f)
     else:
@@ -176,22 +176,24 @@ def main(model_path,
                                                 }
     )
     
-    kmeans_label.to_csv(save_path, index=False)
+    kmeans_label.to_csv(f"data/{dataset}_cluster_labels.csv", index=False)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model_path', type=str, required=True)
-    parser.add_argument('--save_path', type=str, required=True)
+    parser.add_argument('--clf_ckpt', help="Path to the saved classifier ckpt, for example ${OUT_DIR}/derm_12345.pt", type=str, required=True)
     parser.add_argument('--arch', type=str, default='vit', choices=['vit', 'cnn'])
     parser.add_argument('--dataset', type=str, default='derm', choices=['derm', 'cxr'], 
                         help='Type of dataset to use for clustering.')
+    parser.add_argument('--featurized_path', type=str, default='data/featurized_vit_derm.pkl', 
+                        help='Path to the featurized dataset.')
+    parser.add_argument('--device', type=str, default='cuda', help='GPU to use')
 
 
     args = parser.parse_args()
     main(
-        model_path=args.model_path, 
-        save_path=args.save_path, 
+        clf_ckpt=args.clf_ckpt, 
         arch=args.arch, 
-        featurized_path="featurized_vit_cxr.pkl",
-        dataset_type=args.dataset
+        featurized_path=args.featurized_path,
+        dataset=args.dataset,
+        device=args.device
     )
