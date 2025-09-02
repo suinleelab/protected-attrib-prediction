@@ -15,6 +15,8 @@ conda activate protected-attrib-prediciton-env
 ```
 4. Install the protected-atttrib-prediction package and necessary dependencies for development by running ```pip install -e ".[dev]"```
 
+The installation time is ~10 minutes.
+
 ## Set up directory paths
 Create the following environment variables for the base directory to the datasets and the output directory to store the trained models.
 
@@ -142,7 +144,7 @@ python scripts/generate_ebpe.py \
 ```
 
 ### Step 3: Analysing the counterfactuals
-Once the counterfactuals are generated, they can be analysed to identify potentially important signals. This can be done manually or by using a web-app interface as mentioned in the paper. A demo of the web-app is provided in the `/web_app_demo` directory with 10 counterfactua pairs which can be run locally using the commands:
+Once the counterfactuals are generated, they can be analysed to identify potentially important signals. This can be done manually or by using a web-app interface as mentioned in the paper. A demo of the web-app is provided in the `/web_app_demo` directory with 10 counterfactual pairs which can be run locally using the commands:
 
 ```
 cd web_app_demo/
@@ -175,3 +177,7 @@ python scripts/iptw.py \
 ```
 
 The quantification values will get saved to `data/{modality}_iptw_quantification.csv`.
+
+## Hardware Requirements
+
+All experiments were run on NVIDIA RTX 2080 Ti GPUs with 12 GB memory. The StyleGAN training was distributed across 4 GPUs and it took ~4 days to train. The EBPE model was trained on a single GPU and took ~3 days to train. The rest of the steps were performed on a single GPU and finished within a few hours. 
